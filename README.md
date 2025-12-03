@@ -1,2 +1,2 @@
 # ExUpg_4_ea-soa
-Ett universitet behöver ett nytt system för att överföra scheman.
+Samlingssida för [Länkar och resurser](https://discord.com/channels/1412820523892604991/1413059402508013588)
