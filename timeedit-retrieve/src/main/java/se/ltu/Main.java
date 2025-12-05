@@ -1,13 +1,13 @@
 package se.ltu;
 
+import data_objects.CalendarEntry;
 import data_objects.TimeEditResponseModel;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import tools.jackson.databind.ObjectMapper;
-
-import java.util.ArrayList;
+import utilities.CalendarBookingMapper;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -15,14 +15,14 @@ public class Main {
 
     public static void main(String[] args)
     {
-        testJSONFetch();
+        testJSONFetchAndConversion();
     }
 
     /**
      * Försöker hämta TimeEdit's JSON och läsa hur många reservationer som hittades.
      * Endast för testning.
      */
-    private static void testJSONFetch()
+    private static void testJSONFetchAndConversion()
     {
         //setup vars
         String url = "https://cloud.timeedit.net/ltu/web/schedule1/ri106956X27Z0XQ6Z76g5Y35y4006Y34507gQY6Q557645616YQ637.json"; //d0031n + d0023e over lp2, expected reservations: 32
@@ -32,7 +32,7 @@ public class Main {
 
         //get json
         String json = webTarget.request(MediaType.TEXT_PLAIN).get(String.class);
-        System.out.println(json); //debug
+        //System.out.println(json); //debug
 
         //get json v2 - does not work BECAUSE: the response is JSON wrapped in HTML?! ok then, i guess we're processing raw strings
         //TimeEditResponseModel response = webTarget.request(MediaType.APPLICATION_JSON_TYPE).get(TimeEditResponseModel.class);
@@ -43,5 +43,12 @@ public class Main {
 
         //check
         System.out.println("Number of reservations found is "+response.getReservations().toArray().length);
+
+        CalendarEntry[] testConversion = CalendarBookingMapper.convertResponseToCalendarEntry(response);
+
+        for(CalendarEntry c : testConversion)
+        {
+            System.out.println(c.toString());
+        }
     }
 }
