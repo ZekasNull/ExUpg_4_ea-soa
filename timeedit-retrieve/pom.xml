@@ -47,6 +47,16 @@
             <artifactId>jackson-databind</artifactId>
             <version>3.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>3.0.3</version> <!-- or your Jersey version -->
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.15.2</version> <!-- use a version compatible with your Jackson version -->
+        </dependency>
 
 
     </dependencies>
