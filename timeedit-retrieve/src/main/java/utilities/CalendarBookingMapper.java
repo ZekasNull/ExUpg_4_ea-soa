@@ -5,7 +5,6 @@ import data_objects.Reservation;
 import data_objects.TimeEditResponseModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
