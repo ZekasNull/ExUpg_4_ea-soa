@@ -1,13 +1,20 @@
 package se.ltu;
 
 import data_objects.CalendarEntry;
+import data_objects.CanvasCalendarEvent;
 import data_objects.TimeEditResponseModel;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import tools.jackson.databind.ObjectMapper;
 import utilities.CalendarBookingMapper;
+
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -15,7 +22,41 @@ public class Main {
 
     public static void main(String[] args)
     {
+//        testCalendarEventPOST();
         testJSONFetchAndConversion();
+    }
+
+    private static void testCalendarEventPOST()
+    {
+        //targets
+        String TargetURL = "https://canvas.ltu.se/api/v1/calendar_events";
+        Client client = ClientBuilder.newClient();
+        WebTarget webTarget = client.target(TargetURL);
+        System.out.println(webTarget.getUri()); //debug - url faulty?
+
+        //skapa nytt calendarevent
+        CanvasCalendarEvent event = new CanvasCalendarEvent();
+        event.setContext_code("group_187819"); //vår canvasgrupp för uppgiften
+        event.setTitle("Test-POST till Canvas");
+        ZonedDateTime startDateTime = ZonedDateTime.of(LocalDate.of(2026, 1, 23), LocalTime.of(13, 0),  ZoneId.systemDefault());
+        ZonedDateTime endDateTime = ZonedDateTime.of(LocalDate.of(2026, 1, 23), LocalTime.of(14, 0),  ZoneId.systemDefault());
+        event.setStart_at(startDateTime);
+        event.setEnd_at(endDateTime);
+
+        System.out.println(event.getStart_at().format(DateTimeFormatter.ISO_INSTANT));
+        //transform to form
+        Form form = new Form();
+        form.param("calendar_event[context_code]", event.getContext_code());
+        form.param("calendar_event[title]", event.getTitle());
+        form.param("calendar_event[start_at]", event.getStart_at().format(DateTimeFormatter.ISO_INSTANT));
+        form.param("calendar_event[end_at]", event.getEnd_at().format(DateTimeFormatter.ISO_INSTANT));
+
+        //attempt post
+        Response response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
+                                     .header("Authorization", "Bearer 3755~hnFnnRrcJBXuf7GLtNJx4hQ2N6NFThyTwP62tXJzLvFBZextheahYZ7JxmXBeVGc")
+                                     .post(Entity.form(form));
+        System.out.println("Felkod: "+ response.getStatus() + ", meddelande: " + response.getStatusInfo());
+        //System.out.println(response.readEntity(String.class));
     }
 
     /**
