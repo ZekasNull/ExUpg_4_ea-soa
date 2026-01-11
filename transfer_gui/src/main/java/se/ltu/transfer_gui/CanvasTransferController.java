@@ -7,99 +7,123 @@ package se.ltu.transfer_gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 public class CanvasTransferController {
 
     @FXML
-    private MenuItem BokningsPeriod;
+    private Text aktivitetText;
 
     @FXML
-    private DatePicker EndDatePicker;
+    private Button angraKalenderRedigeringButton;
 
     @FXML
-    private MenuItem EnskildBokning;
+    private TableColumn<?, ?> datumColumn;
 
     @FXML
-    private DatePicker FromDatePicker;
+    private ScrollPane detaljDataScrollPane;
 
     @FXML
-    private SplitMenuButton Meny;
+    private AnchorPane formularAnchorPane;
 
     @FXML
-    private DatePicker RedigeraDatePicker;
+    private Button hamtaButton;
 
     @FXML
-    private TextField RedigeraLarareTextField;
+    private TextField hamtningsLankTextField;
 
     @FXML
-    private TextField RedigeraLokalTextField;
+    private TableView<?> kalenderTable;
 
     @FXML
-    private TextField RedigeraLokalTextfield;
+    private Text kommentarText;
 
     @FXML
-    private MenuButton RedigeraTidMeny;
+    private TableColumn<?, ?> kurskodColumn;
 
     @FXML
-    private Button SkickaTillCanvasButton;
+    private Text larareText;
 
     @FXML
-    private TextField kursKodTextField;
+    private TableColumn<?, ?> lokalColumn;
 
     @FXML
-    void UpdateraCanvas(ActionEvent event) {
+    private Text lokalText;
+
+    @FXML
+    private TableColumn<?, ?> lärareColumn;
+
+    @FXML
+    private Text moteslankText;
+
+    @FXML
+    private Button overforButton;
+
+    @FXML
+    private Button redigaraKalenderHandelserButton;
+
+    @FXML
+    private TableColumn<?, ?> tidColumn;
+
+    @FXML
+    private TextField updateraLararTextField;
+
+    @FXML
+    private TextField updateraLokalTextField;
+
+    @FXML
+    private TextField uppdateraAktivitetTextField;
+
+    @FXML
+    private Button uppdateraKalenderHandelserButton;
+
+    @FXML
+    private TextField uppdateraKommentarTextField;
+
+    @FXML
+    private TextField uppdateraMoteslankTextField;
+
+    @FXML
+    private Button valjAllaButton;
+
+    @FXML
+    private TableColumn<?, ?> valjColumn;
+
+    @FXML
+    void angraClicked(MouseEvent event) {
 
     }
 
     @FXML
-    void getKursKod(InputMethodEvent event) {
+    void hamtaKalenderHandelserClicked(MouseEvent event) {
 
     }
 
     @FXML
-    void hanteraBokningsPeriod(ActionEvent event) {
+    void overforKalenderHandelserClicked(MouseEvent event) {
 
     }
 
     @FXML
-    void hanteraEnskildBokning(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    void redigeraLarare(ActionEvent event) {
+    void redigeraKalenderHandelserClicked(MouseEvent event) {
 
     }
 
     @FXML
-    void redigeraLokal(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    void selectEndDate(ActionEvent event) {
+    void uppdateraClicked(MouseEvent event) {
 
     }
 
     @FXML
-    void selectFromDate(ActionEvent event) {
+    void valjAllaClicked(MouseEvent event) {
 
     }
-
-    @FXML
-    void selectKursKod(ActionEvent event) {
-
-    }
-
-
 
 }
 
