@@ -62,4 +62,18 @@ public class CanvasCalendarEntry {
     public void setRrule(String rrule) { this.rrule = rrule; }
 
     //endregion
+
+    @Override
+    public String toString()
+    {
+        return "CanvasCalendarEntry{" +
+                "context_code='" + context_code + '\'' +
+                ", title='" + title + '\'' +
+                ", start_at=" + start_at +
+                ", end_at=" + end_at +
+                ", description='" + description + '\'' +
+                ", location_name='" + location_name + '\'' +
+                ", location_address='" + location_address + '\'' +
+                '}';
+    }
 }
