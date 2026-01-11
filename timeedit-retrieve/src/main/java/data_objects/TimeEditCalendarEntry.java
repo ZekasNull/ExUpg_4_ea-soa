@@ -2,7 +2,10 @@ package data_objects;
 
 import java.util.Map;
 
-public class CalendarEntry {
+/**
+ * Format för ett CalendarEntry. Hanteras även av transfer-applikationen internt.
+ */
+public class TimeEditCalendarEntry {
     private String id;
     private String startdate;
     private String starttime;
@@ -10,12 +13,12 @@ public class CalendarEntry {
     private String endtime;
     private Map<String, String> detailedInformation;
 
-    public CalendarEntry()
+    public TimeEditCalendarEntry()
     {
 
     }
 
-    public CalendarEntry(String id, String startdate, String starttime, String enddate, String endtime, Map<String, String> columns)
+    public TimeEditCalendarEntry(String id, String startdate, String starttime, String enddate, String endtime, Map<String, String> columns)
     {
         this.id = id;
         this.startdate = startdate;

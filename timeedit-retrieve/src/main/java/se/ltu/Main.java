@@ -1,7 +1,7 @@
 package se.ltu;
 
-import data_objects.CalendarEntry;
-import data_objects.CanvasCalendarEvent;
+import data_objects.TimeEditCalendarEntry;
+import data_objects.CanvasCalendarEntry;
 import data_objects.TimeEditResponseModel;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -36,7 +36,7 @@ public class Main {
         System.out.println(webTarget.getUri()); //debug - url faulty?
 
         //skapa nytt calendarevent
-        CanvasCalendarEvent event = new CanvasCalendarEvent();
+        CanvasCalendarEntry event = new CanvasCalendarEntry();
         event.setContext_code("group_187819"); //vår canvasgrupp för uppgiften
         event.setTitle("Test-POST till Canvas");
         ZonedDateTime startDateTime = ZonedDateTime.of(LocalDate.of(2026, 1, 23), LocalTime.of(13, 0), ZoneId.systemDefault());
@@ -91,9 +91,9 @@ public class Main {
         System.out.println("Number of reservations found is " + response.getReservations()
                                                                         .toArray().length);
 
-        CalendarEntry[] testConversion = CalendarBookingMapper.convertResponseToCalendarEntry(response);
+        TimeEditCalendarEntry[] testConversion = CalendarBookingMapper.convertResponseToCalendarEntry(response);
 
-        for (CalendarEntry c : testConversion)
+        for (TimeEditCalendarEntry c : testConversion)
         {
             System.out.println(c.toString());
         }
@@ -103,9 +103,9 @@ public class Main {
     {
         String url = "https://cloud.timeedit.net/ltu/web/schedule1/ri106956X27Z0XQ6Z76g5Y35y4006Y34507gQY6Q557645616YQ637.json";
 
-        CalendarEntry[] testFetch = TimeEditFetcher.getTimeEditBookings(url);
+        TimeEditCalendarEntry[] testFetch = TimeEditFetcher.getTimeEditBookings(url);
 
-        for (CalendarEntry c : testFetch)
+        for (TimeEditCalendarEntry c : testFetch)
         {
             System.out.println(c.toString());
         }

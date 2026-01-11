@@ -1,6 +1,6 @@
 package utilities;
 
-import data_objects.CalendarEntry;
+import data_objects.TimeEditCalendarEntry;
 import data_objects.TimeEditResponseModel;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -19,7 +19,7 @@ public class TimeEditFetcher {
      * @param url en TimeEdit url som slutar med .json
      * @return en array av CalendarEntry-objekt
      */
-    public static CalendarEntry[] getTimeEditBookings(String url)
+    public static TimeEditCalendarEntry[] getTimeEditBookings(String url)
     {
         //minimal input validation
         if (!url.endsWith(".json"))

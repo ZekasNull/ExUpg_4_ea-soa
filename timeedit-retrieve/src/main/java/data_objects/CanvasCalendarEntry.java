@@ -1,8 +1,7 @@
 package data_objects;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
-public class CanvasCalendarEvent {
+public class CanvasCalendarEntry {
     // context_code: (krävs) Entiteten (användare/grupp) som kalenderhändelsen knyts till, exempelvis "user_123" eller "course_456"
     // Title: Tekniskt valfri, men orsakar bad request om den inte finns
     // start_at och end_at: Tekniskt valfri men skapar ett "spökevent" som inte syns om båda är null
@@ -15,15 +14,17 @@ public class CanvasCalendarEvent {
 
     //Valfria
     private String description;
-    private String location_name;          // lokalnamn/zoomrum
-    private String location_address;
+    //Tar möteslänk
+    private String location_name;          // lokalnamn
+    private String location_address;       //plats i  (om ifylld)
+    //plats (om det finns i detailedInformation fråm TimeEdit)
     private String time_zone_edited;       // exempelvis "Europe/Stockholm"
     private Boolean all_day;               // (osäker på hur det interagerar med start_at och end_at, exclusive or?)
     private String child_event_data;       // för återkommande calendar_events
     private Boolean duplicate;             // osäker på hur den används
     private String rrule;                  // "recurrence rule (iCalendar format)" - osäker på om vi behöver den, men inkluderar ändå
 
-    // Getters and setters
+    //region Getters and setters
     public String getContext_code() { return context_code; }
     public void setContext_code(String context_code) { this.context_code = context_code; }
 
@@ -59,4 +60,6 @@ public class CanvasCalendarEvent {
 
     public String getRrule() { return rrule; }
     public void setRrule(String rrule) { this.rrule = rrule; }
+
+    //endregion
 }
