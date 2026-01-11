@@ -1,4 +1,4 @@
-package utilities;
+package utility;
 
 import data_objects.CanvasCalendarEntry;
 import data_objects.TimeEditCalendarEntry;
@@ -6,7 +6,6 @@ import data_objects.Reservation;
 import data_objects.TimeEditResponseModel;
 import network.TimeEditFetcher;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

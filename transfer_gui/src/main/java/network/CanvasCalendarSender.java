@@ -9,7 +9,7 @@ import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import utilities.CalendarBookingMapper;
+import utility.CalendarBookingMapper;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
