@@ -1,4 +1,4 @@
-package utilities;
+package network;
 
 import data_objects.TimeEditCalendarEntry;
 import data_objects.TimeEditResponseModel;
@@ -7,6 +7,7 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import tools.jackson.databind.ObjectMapper;
+import utilities.CalendarBookingMapper;
 
 import java.util.logging.Logger;
 
@@ -41,6 +42,6 @@ public class TimeEditFetcher {
                                                    .toArray().length + " reservations.");
         }
 
-        return CalendarBookingMapper.convertResponseToCalendarEntry(timeEditResponse);
+        return CalendarBookingMapper.convertResponseModelToCalendarEntry(timeEditResponse);
     }
 }
