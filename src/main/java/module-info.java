@@ -4,6 +4,7 @@ module se.ltu.transfer_gui {
     requires jakarta.jakartaee.api;
     requires tools.jackson.databind;
     requires java.logging;
+    requires io.github.cdimascio.dotenv.java;
 
 
     opens se.ltu.transfer_gui to javafx.fxml;

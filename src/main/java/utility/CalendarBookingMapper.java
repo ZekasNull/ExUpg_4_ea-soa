@@ -45,7 +45,6 @@ public class CalendarBookingMapper {
         CanvasCalendarEntry entry = new CanvasCalendarEntry();
         StringBuilder descriptionBlob = new StringBuilder();
         Map<String, String> details = input.getDetailedInformation();
-        ArrayList<String> skippedKeys = new ArrayList<>();
 
         //prep datetimes
         LocalDateTime startDateTime = LocalDateTime.parse(input.getStartdate() + "T" + input.getStarttime() + ":00");
