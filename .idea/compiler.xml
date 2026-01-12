@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="transfer_gui" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="timeedit-retrieve" target="21" />
+      <module name="transfer_gui" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>
