@@ -1,5 +1,8 @@
 package data_objects;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.util.Map;
 
 /**
@@ -12,6 +15,8 @@ public class TimeEditCalendarEntry {
     private String enddate;
     private String endtime;
     private Map<String, String> detailedInformation;
+
+    private BooleanProperty vald = new SimpleBooleanProperty(false);
 
     public TimeEditCalendarEntry()
     {
@@ -87,6 +92,19 @@ public class TimeEditCalendarEntry {
     {
         this.detailedInformation = detailedInformation;
     }
+
+    public BooleanProperty getVald() {
+        return vald;
+    }
+
+    public boolean isVald() {
+        return vald.get();
+    }
+
+    public void setVald(boolean selected) {
+        this.vald.set(selected);
+    }
+
     //endregion
 
 
