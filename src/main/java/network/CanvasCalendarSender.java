@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import utility.CalendarBookingMapper;
+import utility.Config;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,8 +19,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CanvasCalendarSender {
-    private static final String API_TOKEN = "";//TODO ladda från proper config
+    private static final String API_TOKEN = Config.getApiKey();//TODO ladda från proper config
     private static final String CALENDARENDPOINTURL = "https://canvas.ltu.se/api/v1/calendar_events";
+    private static final String TARGET_CALENDAR = Config.getContextCode();
 
     /**
      * Försöker skicka en kalenderhändelse av TimeEdit-format till Canvas genom att först konvertera händelsen till Canvasformat.
