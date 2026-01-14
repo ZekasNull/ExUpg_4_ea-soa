@@ -37,8 +37,8 @@ public class CalendarBookingMapper {
     /**
      * Tar en kalenderhändelse av TimeEdits format och konverterar till Canvas format.
      *
-     * @param input
-     * @return
+     * @param input TimeEditCalendarEntry-objekt
+     * @return CanvasCalendarEntry-objekt
      */
     public static CanvasCalendarEntry convertTimeEditCalendarToCanvasCalendar(TimeEditCalendarEntry input)
     {
