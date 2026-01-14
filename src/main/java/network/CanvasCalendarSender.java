@@ -26,21 +26,21 @@ public class CanvasCalendarSender {
     /**
      * Försöker skicka en kalenderhändelse av TimeEdit-format till Canvas genom att först konvertera händelsen till Canvasformat.
      *
-     * @param event Kalenderhändelsen som ska skickas
+     * @param event Lalenderhändelsen som ska skickas (TimeEdit-format)
      * @return true om händelsen skickades
      */
-    public static boolean sendTimeEditCalendarEntryToCanvas(TimeEditCalendarEntry event)
+    public static boolean SendCalendarEntryToCanvas(TimeEditCalendarEntry event)
     {
-        return SendCanvasCalendarEntryToCanvas(CalendarBookingMapper.convertTimeEditCalendarToCanvasCalendar(event));
+        return SendCalendarEntryToCanvas(CalendarBookingMapper.convertTimeEditCalendarToCanvasCalendar(event));
     }
 
     /**
      * Försöker skicka en kalenderhändelse av Canvas-format till Canvas.
      *
-     * @param event Kalenderhändelsen som ska skickas
+     * @param event Kalenderhändelsen som ska skickas (Canvas-format)
      * @return true om händelsen skickades
      */
-    public static boolean SendCanvasCalendarEntryToCanvas(CanvasCalendarEntry event)
+    public static boolean SendCalendarEntryToCanvas(CanvasCalendarEntry event)
     {
         //vars
         Form form = new Form();
@@ -84,6 +84,6 @@ public class CanvasCalendarSender {
         event.setStart_at(startDateTime);
         event.setEnd_at(endDateTime);
 
-        CanvasCalendarSender.SendCanvasCalendarEntryToCanvas(event);
+        CanvasCalendarSender.SendCalendarEntryToCanvas(event);
     }
 }

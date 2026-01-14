@@ -235,7 +235,7 @@ public class CanvasTransferController {
         statusList.clear();
 
         for (TimeEditCalendarEntry entry : selectedEntries) {
-            boolean success = CanvasCalendarSender.sendTimeEditCalendarEntryToCanvas(entry); //  ellesr ska det va canvas?
+            boolean success = CanvasCalendarSender.SendCalendarEntryToCanvas(entry); //  ellesr ska det va canvas?
             String statusText = success ? "Lyckades" : "Misslyckades";
 
             statusList.add(new String[]{
