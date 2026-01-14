@@ -29,8 +29,7 @@ public class CanvasCalendarSender {
      */
     public static boolean sendTimeEditCalendarEntryToCanvas(TimeEditCalendarEntry event)
     {
-        CanvasCalendarEntry booking = CalendarBookingMapper.convertTimeEditCalendarToCanvasCalendar(event);
-        return SendCanvasCalendarEntryToCanvas(booking);
+        return SendCanvasCalendarEntryToCanvas(CalendarBookingMapper.convertTimeEditCalendarToCanvasCalendar(event));
     }
 
     /**
