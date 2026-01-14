@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class CanvasCalendarSender {
     private static final String API_TOKEN = Config.getApiKey();//TODO ladda från proper config
     private static final String CALENDARENDPOINTURL = "https://canvas.ltu.se/api/v1/calendar_events";
-    private static final String TARGET_CALENDAR = Config.getContextCode();
+    private static final String TARGET_CALENDAR = Config.getContextCode(); //hårdkodat att det hamnar i vår grupp
 
     /**
      * Försöker skicka en kalenderhändelse av TimeEdit-format till Canvas genom att först konvertera händelsen till Canvasformat.
@@ -49,10 +49,12 @@ public class CanvasCalendarSender {
         //validate
         if (API_TOKEN.isEmpty())
             throw new IllegalStateException("CanvasCalendarSender must have API-token to function.");
-        if (event.getContext_code()
-                 .isEmpty())
-            throw new IllegalArgumentException("Context code cannot be empty"); //validering för att garantera att målkalender finns
+//        if (event.getContext_code()
+//                 .isEmpty())
+//            throw new IllegalArgumentException("Context code cannot be empty"); //validering för att garantera att målkalender finns
 
+        //hårdkodat att det hamnar i samma kalender
+        event.setContext_code(TARGET_CALENDAR);
         //prepare form
         form.param("calendar_event[context_code]", event.getContext_code());
         form.param("calendar_event[title]", event.getTitle());
