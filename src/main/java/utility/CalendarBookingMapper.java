@@ -63,8 +63,15 @@ public class CalendarBookingMapper {
         for (String key : details.keySet())
         {
             if (skippedKeyValues.contains(key)) continue; //skip used value
-            if (details.get(key)
-                       .isEmpty()) continue;
+            try
+            {
+                if (details.get(key)
+                           .isEmpty()) continue;
+            } catch (NullPointerException ex)
+            {
+                continue;
+            }
+
 
             descriptionBlob.append(key)
                            .append(": ")
