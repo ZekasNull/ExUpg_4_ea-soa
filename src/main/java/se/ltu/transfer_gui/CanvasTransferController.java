@@ -59,7 +59,7 @@ public class CanvasTransferController {
     private TableColumn<TimeEditCalendarEntry, String> lokalColumn;
 
     @FXML
-    private TableView<String[]> statusTable;
+    private TableView<String[]> statusTableView;
 
     @FXML
     private TableColumn<String[], String> overfforIDColumn;
@@ -244,7 +244,7 @@ public class CanvasTransferController {
             });
 
             }
-        statusTable.setItems(statusList);
+        statusTableView.setItems(statusList);
 
         }
 
