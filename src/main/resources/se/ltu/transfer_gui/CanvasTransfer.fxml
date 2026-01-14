@@ -98,7 +98,7 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <TableView fx:id="statusTabelView" layoutX="535.0" layoutY="285.0" prefHeight="284.0" prefWidth="151.0">
+        <TableView fx:id="statusTableView" layoutX="535.0" layoutY="285.0" prefHeight="284.0" prefWidth="151.0">
         <columns>
           <TableColumn fx:id="overfforIDColumn" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />

@@ -59,7 +59,7 @@ public class CanvasTransferController {
     private TableColumn<TimeEditCalendarEntry, String> lokalColumn;
 
     @FXML
-    private TableView<String[]> statusTable;
+    private TableView<String[]> statusTableView;
 
     @FXML
     private TableColumn<String[], String> overfforIDColumn;
@@ -235,7 +235,7 @@ public class CanvasTransferController {
         statusList.clear();
 
         for (TimeEditCalendarEntry entry : selectedEntries) {
-            boolean success = CanvasCalendarSender.sendTimeEditCalendarEntryToCanvas(entry); //  ellesr ska det va canvas?
+            boolean success = CanvasCalendarSender.SendCalendarEntryToCanvas(entry); //  ellesr ska det va canvas?
             String statusText = success ? "Lyckades" : "Misslyckades";
 
             statusList.add(new String[]{
@@ -244,7 +244,7 @@ public class CanvasTransferController {
             });
 
             }
-        statusTable.setItems(statusList);
+        statusTableView.setItems(statusList);
 
         }
 

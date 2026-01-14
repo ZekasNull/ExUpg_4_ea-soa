@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import utility.CalendarBookingMapper;
+import utility.Config;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,28 +19,28 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CanvasCalendarSender {
-    private static final String API_TOKEN = "";//TODO ladda från proper config
+    private static final String API_TOKEN = Config.getApiKey();//TODO ladda från proper config
     private static final String CALENDARENDPOINTURL = "https://canvas.ltu.se/api/v1/calendar_events";
+    private static final String TARGET_CALENDAR = Config.getContextCode(); //hårdkodat att det hamnar i vår grupp
 
     /**
      * Försöker skicka en kalenderhändelse av TimeEdit-format till Canvas genom att först konvertera händelsen till Canvasformat.
      *
-     * @param event Kalenderhändelsen som ska skickas
+     * @param event Lalenderhändelsen som ska skickas (TimeEdit-format)
      * @return true om händelsen skickades
      */
-    public static boolean sendTimeEditCalendarEntryToCanvas(TimeEditCalendarEntry event)
+    public static boolean SendCalendarEntryToCanvas(TimeEditCalendarEntry event)
     {
-        CanvasCalendarEntry booking = CalendarBookingMapper.convertTimeEditCalendarToCanvasCalendar(event);
-        return SendCanvasCalendarEntryToCanvas(booking);
+        return SendCalendarEntryToCanvas(CalendarBookingMapper.convertTimeEditCalendarToCanvasCalendar(event));
     }
 
     /**
      * Försöker skicka en kalenderhändelse av Canvas-format till Canvas.
      *
-     * @param event Kalenderhändelsen som ska skickas
+     * @param event Kalenderhändelsen som ska skickas (Canvas-format)
      * @return true om händelsen skickades
      */
-    public static boolean SendCanvasCalendarEntryToCanvas(CanvasCalendarEntry event)
+    public static boolean SendCalendarEntryToCanvas(CanvasCalendarEntry event)
     {
         //vars
         Form form = new Form();
@@ -48,10 +49,12 @@ public class CanvasCalendarSender {
         //validate
         if (API_TOKEN.isEmpty())
             throw new IllegalStateException("CanvasCalendarSender must have API-token to function.");
-        if (event.getContext_code()
-                 .isEmpty())
-            throw new IllegalArgumentException("Context code cannot be empty"); //validering för att garantera att målkalender finns
+//        if (event.getContext_code()
+//                 .isEmpty())
+//            throw new IllegalArgumentException("Context code cannot be empty"); //validering för att garantera att målkalender finns
 
+        //hårdkodat att det hamnar i samma kalender
+        event.setContext_code(TARGET_CALENDAR);
         //prepare form
         form.param("calendar_event[context_code]", event.getContext_code());
         form.param("calendar_event[title]", event.getTitle());
@@ -83,6 +86,6 @@ public class CanvasCalendarSender {
         event.setStart_at(startDateTime);
         event.setEnd_at(endDateTime);
 
-        CanvasCalendarSender.SendCanvasCalendarEntryToCanvas(event);
+        CanvasCalendarSender.SendCalendarEntryToCanvas(event);
     }
 }

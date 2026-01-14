@@ -37,15 +37,14 @@ public class CalendarBookingMapper {
     /**
      * Tar en kalenderhändelse av TimeEdits format och konverterar till Canvas format.
      *
-     * @param input
-     * @return
+     * @param input TimeEditCalendarEntry-objekt
+     * @return CanvasCalendarEntry-objekt
      */
     public static CanvasCalendarEntry convertTimeEditCalendarToCanvasCalendar(TimeEditCalendarEntry input)
     {
         CanvasCalendarEntry entry = new CanvasCalendarEntry();
         StringBuilder descriptionBlob = new StringBuilder();
         Map<String, String> details = input.getDetailedInformation();
-        ArrayList<String> skippedKeys = new ArrayList<>();
 
         //prep datetimes
         LocalDateTime startDateTime = LocalDateTime.parse(input.getStartdate() + "T" + input.getStarttime() + ":00");
@@ -64,8 +63,15 @@ public class CalendarBookingMapper {
         for (String key : details.keySet())
         {
             if (skippedKeyValues.contains(key)) continue; //skip used value
-            if (details.get(key)
-                       .isEmpty()) continue;
+            try
+            {
+                if (details.get(key)
+                           .isEmpty()) continue;
+            } catch (NullPointerException ex)
+            {
+                continue;
+            }
+
 
             descriptionBlob.append(key)
                            .append(": ")

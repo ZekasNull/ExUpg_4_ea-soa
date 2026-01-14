@@ -25,7 +25,7 @@ public class TimeEditFetcher {
         //minimal input validation
         if (!url.endsWith(".json"))
         {
-            throw new IllegalArgumentException("Invalid URL");
+            throw new IllegalArgumentException("Invalid URL - must end in .json");
         }
 
         //vars
