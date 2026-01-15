@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CanvasCalendarSender {
-    private static final String API_TOKEN = Config.getApiKey();//TODO ladda från proper config
+    private static final String API_TOKEN = Config.getApiKey();
     private static final String CALENDARENDPOINTURL = "https://canvas.ltu.se/api/v1/calendar_events";
     private static final String TARGET_CALENDAR = Config.getContextCode(); //hårdkodat att det hamnar i vår grupp
 
