@@ -50,16 +50,16 @@
                 </Button>
                 <TextField fx:id="hamtningsLankTextField" layoutX="26.0" layoutY="65.0" prefHeight="26.0" prefWidth="344.0" promptText="fyll i hämtningslänk" />
                 <Button fx:id="hamtaButton" layoutX="370.0" layoutY="65.0" mnemonicParsing="false" onMouseClicked="#hamtaKalenderHandelserClicked" text="Hämta" />
-                <Button fx:id="nekaButton" layoutX="29.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#onNekaClicked" prefHeight="27.0" prefWidth="330.0" style="-fx-background-color: maroon;" text="Neka valda kalenderhändelser" textFill="WHITE">
+                <Button fx:id="nekaButton" layoutX="29.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#onNekaClicked" prefHeight="27.0" prefWidth="330.0" style="-fx-background-color: maroon;" text="Neka vald kalenderhändelse" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Button>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="detaljDataAnchorPane" layoutX="486.0" layoutY="13.0" prefHeight="546.0" prefWidth="283.0">
+        <AnchorPane fx:id="detaljDataAnchorPane" layoutX="486.0" layoutY="13.0" prefHeight="580.0" prefWidth="283.0">
             <children>
-                <ScrollPane layoutY="43.0" prefHeight="503.0" prefWidth="283.0">
+                <ScrollPane prefHeight="580.0" prefWidth="283.0">
                     <content>
                         <GridPane fx:id="redigeraGridPane" prefHeight="560.0" prefWidth="266.0" vgap="20.0">
                             <columnConstraints>

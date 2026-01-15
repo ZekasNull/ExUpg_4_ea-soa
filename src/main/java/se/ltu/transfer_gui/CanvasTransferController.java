@@ -87,6 +87,7 @@ public class CanvasTransferController {
     @FXML
     private TextArea redigeraMoteslankTextArea;
 
+
     @FXML
     private AnchorPane detaljDataAnchorPane;
 
@@ -98,12 +99,6 @@ public class CanvasTransferController {
 
     @FXML
     private TextArea kommentarArea;
-
-    @FXML
-    private Button kommentarButton;
-
-    @FXML
-    private Button nekaButton;
 
     @FXML
     private Text nekaKommentarText;
@@ -180,7 +175,6 @@ public class CanvasTransferController {
             }
         }
 
-        // TODO kolla på vilka fel jag vill fånga och göra mer specifik
         catch (Exception e) {
             showErrorPopup(e.getMessage());
         }
@@ -309,7 +303,6 @@ public class CanvasTransferController {
     }
 
     // denna borde
-    // denna borde
     @FXML
     void overforKalenderHandelser(MouseEvent event) {
         List<TimeEditCalendarEntry> selectedEntries = entriesList.stream()
@@ -334,8 +327,8 @@ public class CanvasTransferController {
         }
 
         statusTableView.setItems(statusList);
+        kalenderTable.refresh();
         knappFunktioner(KnappFunktioner.STATUS);
-
     }
 
     private void showErrorPopup(String message) {
