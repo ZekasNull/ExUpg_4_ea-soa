@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import network.CanvasCalendarSender;
@@ -86,6 +87,28 @@ public class CanvasTransferController {
     @FXML
     private TextArea redigeraMoteslankTextArea;
 
+    @FXML
+    private AnchorPane detaljDataAnchorPane;
+
+    @FXML
+    private AnchorPane statusAnchorPane;
+
+    @FXML
+    private AnchorPane nekaAnchorPane;
+
+    @FXML
+    private TextArea kommentarArea;
+
+    @FXML
+    private Button kommentarButton;
+
+    @FXML
+    private Button nekaButton;
+
+    @FXML
+    private Text nekaKommentarText;
+
+
     // används för att söka efter nycklar i detaildInformation
     private static final String key_aktivitet = "Aktivitet";
     private static final String key_kommentar = "Kommentar, kommentar";
@@ -94,12 +117,51 @@ public class CanvasTransferController {
     private static final String key_kurskod = "Kurskod";
     private static final String key_lokal = "Plats, Lokal";
 
+    // för att kunna switcha mellan olika views
+    public enum KnappFunktioner {
+        DETALJER,
+        STATUS,
+        NEKA,
+        START
+    }
+
     //skapar en observablelist med timeEditCalenderEntry's
     private ObservableList<TimeEditCalendarEntry> entriesList = FXCollections.observableArrayList();
+
+    //skapar en observable list med status info
     private ObservableList<String[]> statusList = FXCollections.observableArrayList();
 
-    // hämtar timeEditCalenderEntry's och lägger dem i observable list
-    // ger lite olika felmeddelandenden vid diverse fel som kan uppstå
+    // här används enum för att kunna switcha mellan olika views
+    private void knappFunktioner(KnappFunktioner läge) {
+
+        //basläge för switch
+        detaljDataAnchorPane.setVisible(false);
+        statusAnchorPane.setVisible(false);
+        nekaAnchorPane.setVisible(false);
+        redigeraGridPane.setDisable(true);
+
+        switch (läge) {
+            case DETALJER:
+                detaljDataAnchorPane.setVisible(true);
+                redigeraGridPane.setDisable(false);
+                break;
+
+            case STATUS:
+                statusAnchorPane.setVisible(true);
+                break;
+
+            case NEKA:
+                nekaAnchorPane.setVisible(true);
+                break;
+
+            case START:
+                detaljDataAnchorPane.setVisible(true);
+                break;
+
+        }
+    }
+
+
     @FXML
     void hamtaKalenderHandelserClicked(MouseEvent event) {
         if (hamtningsLankTextField.getText().isEmpty()) {
@@ -118,6 +180,7 @@ public class CanvasTransferController {
             }
         }
 
+        // TODO kolla på vilka fel jag vill fånga och göra mer specifik
         catch (Exception e) {
             showErrorPopup(e.getMessage());
         }
@@ -166,7 +229,7 @@ public class CanvasTransferController {
     void handelserTableClicked(MouseEvent event) {
         rensaFormularData();
         laddaFormularData(kalenderTable.getSelectionModel().getSelectedItem());
-        redigeraGridPane.setDisable(false);
+        knappFunktioner(KnappFunktioner.DETALJER);
     }
 
     @FXML
@@ -178,6 +241,33 @@ public class CanvasTransferController {
         redigeradHandelse.put(key_larare, redigeraLarareTextArea.getText());
         redigeradHandelse.put(key_moteslank, redigeraMoteslankTextArea.getText());
         kalenderTable.refresh();
+    }
+
+    @FXML
+    void onNekaClicked(MouseEvent event) {
+        List<TimeEditCalendarEntry> selectedEntries = entriesList.stream()
+                .filter(entry -> entry.getVald().get())
+                .toList();
+        if (selectedEntries.isEmpty()) {
+            showErrorPopup("Du har inga valda kalenderhändelser");
+            return;
+        }
+
+        if (selectedEntries.size() > 1) {
+            showErrorPopup("Du kan bara välja en i taget");
+            return;
+        }
+
+        nekaKommentarText.setText("Kommentarera på: " + selectedEntries.get(0).getId());
+        kommentarArea.clear();
+        knappFunktioner(KnappFunktioner.NEKA);
+    }
+
+    @FXML
+    void kommenteraButtonClicked(MouseEvent event) {
+        knappFunktioner(KnappFunktioner.DETALJER);
+        showInformationPopup("Skickat till schemaläggare");
+        entriesList.remove(kalenderTable.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -205,15 +295,12 @@ public class CanvasTransferController {
         valjColumn.setCellValueFactory(cellData -> cellData.getValue().getVald());
         valjColumn.setCellFactory(CheckBoxTableCell.forTableColumn(valjColumn));
 
-
-
         overfforIDColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue()[0]));
-
         statusColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue()[1]));
 
-        redigeraGridPane.setDisable(true);
+        knappFunktioner(KnappFunktioner.START);
 
         //välj wrapping metoden på de metoder som måste anpassas för att passa i rutan
         enableWrapping(kurskodColumn);
@@ -221,6 +308,7 @@ public class CanvasTransferController {
 
     }
 
+    // denna borde
     // denna borde
     @FXML
     void overforKalenderHandelser(MouseEvent event) {
@@ -235,20 +323,21 @@ public class CanvasTransferController {
         statusList.clear();
 
         for (TimeEditCalendarEntry entry : selectedEntries) {
-            boolean success = CanvasCalendarSender.SendCalendarEntryToCanvas(entry); //  ellesr ska det va canvas?
-            String statusText = success ? "Lyckades" : "Misslyckades";
+            boolean lyckad = CanvasCalendarSender.sendCalendarEntryToCanvas(entry); //  eller ska det va canvas?
+            String statusText = lyckad ? "Lyckades" : "Misslyckades";
 
             statusList.add(new String[]{
                     new String(entry.getId()),
                     new String(statusText)
             });
 
-            }
-        statusTableView.setItems(statusList);
-
         }
 
-    //metod som kan återanvändas för att visa errormedelanden
+        statusTableView.setItems(statusList);
+        knappFunktioner(KnappFunktioner.STATUS);
+
+    }
+
     private void showErrorPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Fel");
@@ -256,26 +345,32 @@ public class CanvasTransferController {
         alert.showAndWait();
     }
 
-//100% ai för att göra så texten får bättre plats i tabellen
-private void enableWrapping(TableColumn<TimeEditCalendarEntry, String> column) {
-    column.setCellFactory(tc -> new TableCell<>() {
-        private final Text text = new Text();
+    private void showInformationPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(message);
+        alert.showAndWait();
+    }
 
-        {
-            text.wrappingWidthProperty().bind(tc.widthProperty().subtract(10));
-            setGraphic(text);
-            setPrefHeight(Control.USE_COMPUTED_SIZE);
-        }
+    //100% ai för att göra så texten får bättre plats i tabellen
+    private void enableWrapping(TableColumn<TimeEditCalendarEntry, String> column) {
+        column.setCellFactory(tc -> new TableCell<>() {
+            private final Text text = new Text();
 
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            text.setText(empty || item == null ? null : item);
-        }
-    });
+            {
+                text.wrappingWidthProperty().bind(tc.widthProperty().subtract(10));
+                setGraphic(text);
+                setPrefHeight(Control.USE_COMPUTED_SIZE);
+            }
 
-    //forloopa
-}
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                text.setText(empty || item == null ? null : item);
+            }
+        });
+
+    }
 
 
 }

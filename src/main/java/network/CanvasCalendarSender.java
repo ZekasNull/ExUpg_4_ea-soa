@@ -29,7 +29,7 @@ public class CanvasCalendarSender {
      * @param event Lalenderhändelsen som ska skickas (TimeEdit-format)
      * @return true om händelsen skickades
      */
-    public static boolean SendCalendarEntryToCanvas(TimeEditCalendarEntry event)
+    public static boolean sendCalendarEntryToCanvas(TimeEditCalendarEntry event)
     {
         return SendCalendarEntryToCanvas(CalendarBookingMapper.convertTimeEditCalendarToCanvasCalendar(event));
     }
