@@ -6,6 +6,7 @@ public class CanvasCalendarEntry {
     // Title: Tekniskt valfri, men orsakar bad request om den inte finns
     // start_at och end_at: Tekniskt valfri men skapar ett "spökevent" som inte syns om båda är null
 
+    //region Class variables
     //obligatoriska
     private String context_code;           // Entitetskod, typ "user_123" eller "course_456"
     private String title;
@@ -23,6 +24,7 @@ public class CanvasCalendarEntry {
     private String child_event_data;       // för återkommande calendar_events
     private Boolean duplicate;             // osäker på hur den används
     private String rrule;                  // "recurrence rule (iCalendar format)" - osäker på om vi behöver den, men inkluderar ändå
+    //endregion
 
     //region Getters and setters
     public String getContext_code() { return context_code; }
