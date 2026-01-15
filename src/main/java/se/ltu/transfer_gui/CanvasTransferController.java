@@ -227,6 +227,11 @@ public class CanvasTransferController {
     // metod som rensar och laddar om  redigeraformulären med data vid klick i händelsertabellen
     @FXML
     void handelserTableClicked(MouseEvent event) {
+        if (kalenderTable.getSelectionModel()
+                         .getSelectedItem() == null)
+        {
+            return;
+        }
         rensaFormularData();
         laddaFormularData(kalenderTable.getSelectionModel().getSelectedItem());
         knappFunktioner(KnappFunktioner.DETALJER);
