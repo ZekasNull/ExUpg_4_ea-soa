@@ -1,4 +1,4 @@
-package se.ltu.transfer_gui;
+package controllers;
 
 import data_objects.TimeEditCalendarEntry;
 import javafx.beans.property.SimpleStringProperty;
